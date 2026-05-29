@@ -151,7 +151,7 @@ const EventsPage = () => {
   ];
 
   return (
-    <div className="bg-gray-950 text-white min-h-screen font-sans overflow-hidden" ref={containerRef}>
+    <div className="relative bg-gray-950 text-white min-h-screen font-sans overflow-hidden" ref={containerRef}>
       {/* Background Decorative Glows */}
       <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none -z-10" />
       <div className="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-blue-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
@@ -164,10 +164,10 @@ const EventsPage = () => {
           <div className="inline-block bg-cyan-500/10 border border-cyan-400/20 text-cyan-400 font-semibold px-4 py-1.5 rounded-full text-xs md:text-sm mb-6 uppercase tracking-wider">
             Race Calendar & Archives
           </div>
-          <h1 id="events-hero-title" className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-400">
+          <h1 id="events-hero-title" className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-400">
             Pushing Boundaries, <span className="text-cyan-400">Breaking Records</span>
           </h1>
-          <p id="events-hero-desc" className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+          <p id="events-hero-desc" className="text-gray-400 text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
             From state-of-the-art simulations in our campus labs to high-octane engineering competitions across India, discover where we are heading and where we have made our mark.
           </p>
         </div>
@@ -177,7 +177,7 @@ const EventsPage = () => {
       <section id="upcoming-section" className="py-16 md:py-24 bg-gray-900/50 border-t border-b border-white/5 relative z-10 px-6">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4">
               Gearing Up for the Future
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
@@ -193,7 +193,7 @@ const EventsPage = () => {
               >
                 {/* Visual Accent Header */}
                 <div className={`h-2 bg-gradient-to-r ${event.color}`} />
-                <div className="p-8 flex-grow">
+                <div className="p-6 sm:p-8 flex-grow">
                   <div className="flex justify-between items-center mb-6">
                     <span className="bg-white/5 border border-white/10 text-gray-300 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider">
                       Season 2026-27
@@ -238,7 +238,7 @@ const EventsPage = () => {
       <section className="py-20 md:py-32 px-6" ref={timelineRef}>
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-20">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4">
               Our Track Record
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
@@ -308,7 +308,7 @@ const EventsPage = () => {
       {/* 4. Bottom Call To Action */}
       <section className="py-16 md:py-24 bg-gradient-to-t from-gray-950 to-gray-900 px-6 border-t border-white/5 relative z-10 text-center">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4">Want to see our cars live?</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4">Want to see our cars live?</h2>
           <p className="text-gray-400 mb-8 max-w-xl mx-auto">
             We host campus showcases, engine fire-ups, and static reviews. Follow our newsletter and stay updated on the next tire-burn.
           </p>

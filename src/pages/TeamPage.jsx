@@ -215,7 +215,7 @@ const TeamPage = () => {
   };
 
   return (
-    <div className="bg-gray-950 text-white min-h-screen font-sans pb-20 overflow-hidden" ref={containerRef}>
+    <div className="relative bg-gray-950 text-white min-h-screen font-sans pb-20 overflow-hidden" ref={containerRef}>
       {/* Dynamic glow nodes in background */}
       <div className="absolute top-0 right-1/4 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[130px] pointer-events-none -z-10" />
       <div className="absolute top-1/2 left-1/4 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[150px] pointer-events-none -z-10" />
@@ -226,10 +226,10 @@ const TeamPage = () => {
           <div className="inline-block bg-cyan-500/10 border border-cyan-400/20 text-cyan-400 font-semibold px-4 py-1.5 rounded-full text-xs md:text-sm mb-6 uppercase tracking-wider">
             MEET THE ENGINEER FORCE
           </div>
-          <h1 id="team-hero-header" className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-400">
+          <h1 id="team-hero-header" className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-200 to-gray-400">
             The Minds Behind <span className="text-cyan-400">The Machines</span>
           </h1>
-          <p id="team-hero-subtitle" className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p id="team-hero-subtitle" className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Our team brings together coders, designers, aerodynamicists, and managers working in full synergy to turn computational physics into racetrack engineering.
           </p>
         </div>
@@ -245,7 +245,7 @@ const TeamPage = () => {
             <button
               key={sub}
               onClick={() => setActiveFilter(sub)}
-              className={`px-5 py-2.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-300 ${
+              className={`px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 ${
                 activeFilter === sub
                   ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/20'
                   : 'text-gray-400 hover:text-white hover:bg-white/5'
@@ -327,7 +327,7 @@ const TeamPage = () => {
 
       {/* 4. Join the Club Banner */}
       <section className="mt-28 px-6 text-center">
-        <div className="max-w-4xl mx-auto bg-gradient-to-r from-gray-900 via-gray-950 to-gray-900 border border-white/10 rounded-3xl p-10 md:p-16 relative overflow-hidden shadow-2xl">
+        <div className="max-w-4xl mx-auto bg-gradient-to-r from-gray-900 via-gray-950 to-gray-900 border border-white/10 rounded-3xl p-6 sm:p-10 md:p-16 relative overflow-hidden shadow-2xl">
           {/* Subtle glow core */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyan-500/10 rounded-full blur-[90px] pointer-events-none" />
           

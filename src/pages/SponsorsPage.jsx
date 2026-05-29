@@ -123,7 +123,7 @@ const SponsorsPage = () => {
   ];
 
   return (
-    <div className="bg-gray-950 text-white min-h-screen font-sans pb-24 overflow-hidden" ref={containerRef}>
+    <div className="relative bg-gray-950 text-white min-h-screen font-sans pb-24 overflow-hidden" ref={containerRef}>
       {/* Visual glowing accents */}
       <div className="absolute top-0 left-1/3 w-[600px] h-[600px] bg-cyan-600/10 rounded-full blur-[140px] pointer-events-none -z-10" />
       <div className="absolute top-1/2 right-1/4 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none -z-10" />
@@ -136,10 +136,10 @@ const SponsorsPage = () => {
           <div className="inline-block bg-cyan-500/10 border border-cyan-400/20 text-cyan-400 font-semibold px-4 py-1.5 rounded-full text-xs md:text-sm mb-6 uppercase tracking-wider">
             Partners in Engineering
           </div>
-          <h1 id="sponsors-hero-title" className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-400">
+          <h1 id="sponsors-hero-title" className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-400">
             Fueling Innovation, <span className="text-cyan-400">Supporting Speed</span>
           </h1>
-          <p id="sponsors-hero-desc" className="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-10">
+          <p id="sponsors-hero-desc" className="text-gray-400 text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-10">
             Our accomplishments are made possible through the support of corporate leaders and research sponsors. Together, we are bridging classroom fundamentals with track-ready performance.
           </p>
           <div id="sponsors-hero-cta" className="flex flex-wrap justify-center gap-4">
@@ -164,7 +164,7 @@ const SponsorsPage = () => {
               <h2 className="text-2xl font-bold tracking-widest text-center uppercase text-amber-400">Title Sponsor</h2>
             </div>
             
-            <div className="max-w-4xl mx-auto bg-gradient-to-b from-amber-500/10 to-amber-500/0 border border-amber-500/30 p-8 md:p-12 rounded-3xl backdrop-blur-md shadow-2xl flex flex-col md:flex-row items-center gap-8 hover:border-amber-400/50 transition-all duration-300">
+            <div className="max-w-4xl mx-auto bg-gradient-to-b from-amber-500/10 to-amber-500/0 border border-amber-500/30 p-6 sm:p-8 md:p-12 rounded-3xl backdrop-blur-md shadow-2xl flex flex-col md:flex-row items-center gap-8 hover:border-amber-400/50 transition-all duration-300">
               <div className="w-48 h-48 rounded-2xl bg-gray-950 border border-amber-500/20 flex flex-col items-center justify-center p-4 text-center flex-shrink-0 shadow-[0_0_20px_rgba(245,158,11,0.1)] group">
                 <span className="text-3xl font-extrabold text-amber-400 tracking-wider group-hover:scale-105 transition-transform duration-300">{titleSponsor.logoText}</span>
               </div>
@@ -190,7 +190,7 @@ const SponsorsPage = () => {
               {platinumSponsors.map((sponsor, idx) => (
                 <div 
                   key={idx}
-                  className="bg-gradient-to-b from-cyan-500/10 to-transparent border border-cyan-500/20 p-8 rounded-3xl backdrop-blur-md hover:border-cyan-400/40 transition-all duration-300 flex flex-col md:flex-row items-center gap-6"
+                  className="bg-gradient-to-b from-cyan-500/10 to-transparent border border-cyan-500/20 p-6 sm:p-8 rounded-3xl backdrop-blur-md hover:border-cyan-400/40 transition-all duration-300 flex flex-col md:flex-row items-center gap-6"
                 >
                   <div className="w-36 h-36 rounded-2xl bg-gray-950 border border-cyan-500/10 flex items-center justify-center p-3 text-center flex-shrink-0 shadow-[0_0_15px_rgba(34,211,238,0.08)]">
                     <span className="text-xl font-black text-cyan-400 uppercase tracking-widest leading-tight">{sponsor.logoText}</span>
@@ -284,7 +284,7 @@ const SponsorsPage = () => {
 
       {/* 4. Contact Partnership Call To Action */}
       <section className="py-20 px-6 text-center">
-        <div className="max-w-4xl mx-auto bg-gradient-to-b from-gray-900 to-gray-950 border border-white/10 rounded-3xl p-10 md:p-16 relative overflow-hidden shadow-2xl">
+        <div className="max-w-4xl mx-auto bg-gradient-to-b from-gray-900 to-gray-950 border border-white/10 rounded-3xl p-6 sm:p-10 md:p-16 relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-72 h-72 bg-purple-500/10 rounded-full blur-[80px] pointer-events-none" />
           
           <div className="relative z-10">

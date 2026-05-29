@@ -193,7 +193,7 @@ const ProjectsPage = () => {
   };
 
   return (
-    <div className="bg-gray-950 text-white min-h-screen font-sans pb-24 overflow-hidden" ref={containerRef}>
+    <div className="relative bg-gray-950 text-white min-h-screen font-sans pb-24 overflow-hidden" ref={containerRef}>
       {/* Decorative neon backdrops */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-cyan-600/5 rounded-full blur-[140px] pointer-events-none -z-10" />
       <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-blue-600/15 rounded-full blur-[120px] pointer-events-none -z-10" />
@@ -204,10 +204,10 @@ const ProjectsPage = () => {
           <div className="inline-block bg-cyan-500/10 border border-cyan-400/20 text-cyan-400 font-semibold px-4 py-1.5 rounded-full text-xs md:text-sm mb-6 uppercase tracking-wider">
             SAE Fleet & Capability Deck
           </div>
-          <h1 id="projects-hero-header" className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-400">
+          <h1 id="projects-hero-header" className="text-3xl sm:text-4xl md:text-6xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-gray-100 to-gray-400">
             Engineered for <span className="text-cyan-400">High Performance</span>
           </h1>
-          <p id="projects-hero-desc" className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+          <p id="projects-hero-desc" className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             From the roaring engines of our combustion line to the modular high-voltage accumulator packs in our EVs, explore the machines we have brought to life.
           </p>
         </div>
@@ -223,7 +223,7 @@ const ProjectsPage = () => {
             <button
               key={cat}
               onClick={() => setActiveFilter(cat)}
-              className={`px-5 py-2.5 rounded-xl text-sm font-semibold tracking-wide transition-all duration-300 ${
+              className={`px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all duration-300 ${
                 activeFilter === cat
                   ? 'bg-cyan-500 text-black shadow-lg shadow-cyan-500/20'
                   : 'text-gray-400 hover:text-white hover:bg-white/5'
@@ -279,22 +279,22 @@ const ProjectsPage = () => {
                   </p>
 
                   {/* Spec Sheets Block */}
-                  <div className="grid grid-cols-2 gap-4 pt-6 border-t border-white/5 bg-gray-950/30 p-4 rounded-xl">
-                    <div className="flex items-center text-xs text-gray-300">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-6 border-t border-white/5 bg-gray-950/30 p-3 sm:p-4 rounded-xl">
+                    <div className="flex items-center text-[10px] sm:text-xs text-gray-300">
                       <FaTachometerAlt className="mr-2 text-cyan-400 w-3.5 h-3.5 flex-shrink-0" />
-                      <span>Speed: <strong>{p.specs.speed}</strong></span>
+                      <span className="truncate">Speed: <strong>{p.specs.speed}</strong></span>
                     </div>
-                    <div className="flex items-center text-xs text-gray-300">
+                    <div className="flex items-center text-[10px] sm:text-xs text-gray-300">
                       <FaWeightHanging className="mr-2 text-cyan-400 w-3.5 h-3.5 flex-shrink-0" />
-                      <span>Weight: <strong>{p.specs.weight}</strong></span>
+                      <span className="truncate">Weight: <strong>{p.specs.weight}</strong></span>
                     </div>
-                    <div className="col-span-2 flex items-center text-xs text-gray-300">
+                    <div className="col-span-2 flex items-center text-[10px] sm:text-xs text-gray-300">
                       <FaBolt className="mr-2 text-cyan-400 w-3.5 h-3.5 flex-shrink-0" />
-                      <span>Power: <strong className="truncate max-w-[200px]">{p.specs.powertrain}</strong></span>
+                      <span className="truncate">Power: <strong>{p.specs.powertrain}</strong></span>
                     </div>
-                    <div className="col-span-2 flex items-center text-xs text-gray-300">
+                    <div className="col-span-2 flex items-center text-[10px] sm:text-xs text-gray-300">
                       <FaRulerCombined className="mr-2 text-cyan-400 w-3.5 h-3.5 flex-shrink-0" />
-                      <span>Frame: <strong className="truncate max-w-[200px]">{p.specs.chassis}</strong></span>
+                      <span className="truncate">Frame: <strong>{p.specs.chassis}</strong></span>
                     </div>
                   </div>
 

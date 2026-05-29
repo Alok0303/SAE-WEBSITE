@@ -1,6 +1,8 @@
 // src/components/Navbar.jsx
 import { useState, useEffect } from 'react'; // Import useEffect
+// eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 // --- Icon components remain the same ---
 const MenuIcon = (props) => (
@@ -21,11 +23,11 @@ const Navbar = () => {
   const [hasScrolled, setHasScrolled] = useState(false); // --- ADD THIS LINE ---
 
   const navLinks = [
-    { title: 'About', href: '#about' },
-    { title: 'Events', href: '#events' },
-    { title: 'Projects', href: '#projects' },
-    { title: 'Team', href: '#team' },
-    { title: 'Sponsors', href: '#sponsors' },
+    { title: 'About', to: '/#about' },
+    { title: 'Events', to: '/events' },
+    { title: 'Projects', to: '/#projects' },
+    { title: 'Team', to: '/team' },
+    { title: 'Sponsors', to: '/sponsors' },
   ];
 
   // --- ADD THIS ENTIRE useEffect HOOK ---
@@ -56,25 +58,25 @@ const Navbar = () => {
     <>
       {/* --- MODIFY THIS LINE --- */}
       <header 
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 
-        ${hasScrolled ? 'bg-black/70 backdrop-blur-sm shadow-lg' : 'bg-transparent'}`}
+         className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 
+         ${hasScrolled ? 'bg-black/80 backdrop-blur-md shadow-lg' : 'bg-transparent'}`}
       >
         <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
           {/* Logo */}
-          <div className="text-2xl font-bold text-white">
+          <Link to="/" className="text-2xl font-bold text-white hover:opacity-90 transition-opacity">
             SAE <span className="text-cyan-400">IITR</span>
-          </div>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.title}
-                href={link.href}
-                className="text-gray-300 hover:text-white transition-colors duration-200"
+                to={link.to}
+                className="text-gray-300 hover:text-white transition-colors duration-200 font-medium"
               >
                 {link.title}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -95,7 +97,7 @@ const Navbar = () => {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'tween', ease: 'easeInOut', duration: 0.3 }}
-            className="fixed top-0 right-0 h-full w-full max-w-xs bg-gray-900 z-50 p-6 md:hidden"
+            className="fixed top-0 right-0 h-full w-full max-w-xs bg-gray-900 z-50 p-6 md:hidden border-l border-white/10"
           >
             <div className="flex justify-end mb-8">
               <button onClick={toggleMobileMenu} className="text-white focus:outline-none">
@@ -104,14 +106,14 @@ const Navbar = () => {
             </div>
             <div className="flex flex-col space-y-6">
               {navLinks.map((link) => (
-                <a
+                <Link
                   key={link.title}
-                  href={link.href}
+                  to={link.to}
                   onClick={toggleMobileMenu}
-                  className="text-2xl text-gray-300 hover:text-cyan-400 transition-colors duration-200"
+                  className="text-2xl text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-medium"
                 >
                   {link.title}
-                </a>
+                </Link>
               ))}
             </div>
           </motion.div>

@@ -1,12 +1,13 @@
 // src/components/Footer.jsx
 import { FaLinkedin, FaGithub, FaInstagram, FaEnvelope } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   const navLinks = [
-    { title: 'About', href: '#about' },
-    { title: 'Events', href: '#events' },
-    { title: 'Projects', href: '#projects' },
-    { title: 'Team', href: '#team' },
+    { title: 'About', to: '/#about' },
+    { title: 'Events', to: '/events' },
+    { title: 'Projects', to: '/#projects' },
+    { title: 'Team', to: '/team' },
   ];
 
   const socialLinks = [
@@ -36,9 +37,9 @@ const Footer = () => {
             <ul className="space-y-2">
               {navLinks.map((link) => (
                 <li key={link.title}>
-                  <a href={link.href} className="hover:text-cyan-400 transition-colors duration-200">
+                  <Link to={link.to} className="hover:text-cyan-400 transition-colors duration-200">
                     {link.title}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

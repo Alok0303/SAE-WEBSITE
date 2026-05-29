@@ -5,6 +5,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App.jsx';
 import HomePage from './pages/HomePage.jsx';
+import EventsPage from './pages/EventsPage.jsx';
+import TeamPage from './pages/TeamPage.jsx';
+import SponsorsPage from './pages/SponsorsPage.jsx';
 import './index.css';
 
 // Define the application's routes
@@ -17,7 +20,18 @@ const router = createBrowserRouter([
         index: true, // This makes HomePage the default child route
         element: <HomePage />,
       },
-      // We will add other pages like /about, /team here later
+      {
+        path: 'events',
+        element: <EventsPage />,
+      },
+      {
+        path: 'team',
+        element: <TeamPage />,
+      },
+      {
+        path: 'sponsors',
+        element: <SponsorsPage />,
+      },
     ],
   },
 ]);

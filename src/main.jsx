@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage.jsx';
 import EventsPage from './pages/EventsPage.jsx';
 import TeamPage from './pages/TeamPage.jsx';
 import SponsorsPage from './pages/SponsorsPage.jsx';
+import ProjectsPage from './pages/ProjectsPage.jsx';
 import './index.css';
 
 // Define the application's routes
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: 'sponsors',
         element: <SponsorsPage />,
+      },
+      {
+        path: 'projects',
+        element: <ProjectsPage />,
       },
     ],
   },

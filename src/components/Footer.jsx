@@ -6,7 +6,7 @@ const Footer = () => {
   const navLinks = [
     { title: 'About', to: '/#about' },
     { title: 'Events', to: '/events' },
-    { title: 'Projects', to: '/#projects' },
+    { title: 'Projects', to: '/projects' },
     { title: 'Team', to: '/team' },
   ];
 

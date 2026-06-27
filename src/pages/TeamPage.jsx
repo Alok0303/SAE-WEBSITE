@@ -45,7 +45,7 @@ const TeamPage = () => {
       phone: '+91 93568 39085',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/malhar.webp', 
       glowColor: 'cyan'
     },
     {
@@ -56,7 +56,7 @@ const TeamPage = () => {
       phone: '+91 70163 10213',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/gunjan.webp', 
       glowColor: 'orange'
     },
     {
@@ -67,7 +67,7 @@ const TeamPage = () => {
       phone: '+91 91468 40340',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/bhushan.webp', 
       glowColor: 'blue'
     },
     {
@@ -78,7 +78,7 @@ const TeamPage = () => {
       phone: '+91 91370 59557',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/pandey.webp', 
       glowColor: 'blue'
     },
     {
@@ -88,7 +88,7 @@ const TeamPage = () => {
       email: 'mukul@saeiitr.in',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/mukul.webp', 
       glowColor: 'cyan'
     },
     {
@@ -98,7 +98,7 @@ const TeamPage = () => {
       email: 'jay@saeiitr.in',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/tanna.webp', 
       glowColor: 'teal'
     },
     {
@@ -108,7 +108,7 @@ const TeamPage = () => {
       email: 'aryan@saeiitr.in',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/aryan.webp', 
       glowColor: 'amber'
     },
     {
@@ -118,7 +118,7 @@ const TeamPage = () => {
       email: 'prathvi@saeiitr.in',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/prithvi.webp', 
       glowColor: 'orange'
     },
     {
@@ -128,7 +128,7 @@ const TeamPage = () => {
       email: 'umang@saeiitr.in',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/umang.webp', 
       glowColor: 'cyan'
     },
     {
@@ -138,7 +138,7 @@ const TeamPage = () => {
       email: 'dishant@saeiitr.in',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/dishant.webp', 
       glowColor: 'emerald'
     },
     {
@@ -148,7 +148,7 @@ const TeamPage = () => {
       email: 'tushar@saeiitr.in',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/tushar.webp', 
       glowColor: 'purple'
     },
     {
@@ -158,7 +158,7 @@ const TeamPage = () => {
       email: 'suyash@saeiitr.in',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/suyash.webp', 
       glowColor: 'cyan'
     },
     {
@@ -168,7 +168,7 @@ const TeamPage = () => {
       email: 'samruddhi@saeiitr.in',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/samridhi.webp', 
       glowColor: 'fuchsia'
     },
     {
@@ -178,7 +178,7 @@ const TeamPage = () => {
       email: 'alok@saeiitr.in',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/alok.webp', 
       glowColor: 'orange'
     },
     {
@@ -188,7 +188,7 @@ const TeamPage = () => {
       email: 'sanat@saeiitr.in',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/sanat.webp', 
       glowColor: 'emerald'
     },
     {
@@ -198,7 +198,7 @@ const TeamPage = () => {
       email: 'chiraag@saeiitr.in',
       linkedin: 'https://linkedin.com',
       github: 'https://github.com',
-      image: '', 
+      image: 'photos/team/chirag.webp', 
       glowColor: 'blue'
     }
   ];
@@ -321,7 +321,7 @@ const TeamPage = () => {
 
       {/* 1.5 Faculty Advisor Section */}
       <section className="px-6 mb-20 relative z-30">
-        <div className="container mx-auto max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="container mx-auto lg:max-w-6xl max-w-xs sm:max-w-xl grid grid-cols-1 md:grid-cols-2 gap-8">
           {facultyAdvisors.map((faculty, idx) => (
             <div
               key={idx}
@@ -397,7 +397,7 @@ const TeamPage = () => {
       <section className="px-6 relative z-10">
         <div 
           ref={gridRef}
-          className="container mx-auto max-w-6xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+          className="container mx-auto lg:max-w-6xl max-w-xs sm:max-w-xl grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
         >
           {filteredMembers.map((member, idx) => (
             <div
@@ -409,7 +409,7 @@ const TeamPage = () => {
               <div className="p-6 relative z-10 flex-grow">
                 {/* Styled Profile Image Container with vibrant fallbacks */}
                 <div className="flex justify-center mb-6">
-                  <div className={`w-24 h-24 rounded-2xl border bg-gray-950 overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-105 ${getGlowStyle(member.glowColor)}`}>
+                  <div className={`w-24 h-36 rounded-2xl  bg-gray-950 overflow-hidden flex items-center justify-center transition-transform duration-500 group-hover:scale-105 ${getGlowStyle(member.glowColor)}`}>
                     {member.image ? (
                       <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
                     ) : (

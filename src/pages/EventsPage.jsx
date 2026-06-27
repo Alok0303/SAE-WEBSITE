@@ -9,6 +9,15 @@ gsap.registerPlugin(ScrollTrigger);
 const EventsPage = () => {
   const containerRef = useRef(null);
   const timelineRef = useRef(null);
+  // Create an array ref to target mapped elements cleanly
+  const cardRefs = useRef([]);
+  cardRefs.current = [];
+
+  const addToRefs = (el) => {
+    if (el && !cardRefs.current.includes(el)) {
+      cardRefs.current.push(el);
+    }
+  };
 
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
@@ -33,19 +42,27 @@ const EventsPage = () => {
         ease: 'power3.out',
       }, '-=0.6');
 
-      // 2. Upcoming Events Stagger
-      gsap.from('.upcoming-card', {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        stagger: 0.25,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '#upcoming-section',
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        }
-      });
+      // 2. Upcoming Events Stagger (Using direct array references)
+      if (cardRefs.current.length > 0) {
+        gsap.fromTo(cardRefs.current, 
+          {
+            opacity: 0,
+            y: 50
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.25,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: '#upcoming-section',
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            }
+          }
+        );
+      }
 
       // 3. Timeline line drawing animation
       gsap.from('#timeline-line', {
@@ -174,7 +191,7 @@ const EventsPage = () => {
       </section>
 
       {/* 2. Upcoming Events Section */}
-      <section id="upcoming-section" className="py-16 md:py-24 bg-gray-900/50 border-t border-b border-white/5 relative z-10 px-6">
+      <section id="upcoming-section" className="py-16 md:py-24 bg-gray-900/50 border-t border-b border-white/5 relative z-10 px-6 isolate">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mb-4">
@@ -189,6 +206,7 @@ const EventsPage = () => {
             {upcomingEvents.map((event, idx) => (
               <div
                 key={idx}
+                ref={addToRefs}
                 className="upcoming-card bg-gray-950/80 rounded-2xl border border-white/10 hover:border-cyan-400/30 overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between"
               >
                 {/* Visual Accent Header */}

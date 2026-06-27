@@ -1,24 +1,162 @@
 // src/pages/ProjectsPage.jsx
-import { useState, useLayoutEffect, useRef } from 'react';
+import { useState, useLayoutEffect, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaBolt, FaGasPump, FaCompass, FaChevronRight, FaRulerCombined, FaWeightHanging, FaTachometerAlt } from 'react-icons/fa';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// ─── NEW ISOLATED PROJECT CARD COMPONENT ──────────────────────────────────────
+const ProjectCard = ({ project, addProjectRef, getThemeStyles }) => {
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+  const styles = getThemeStyles(project.color);
+
+  useEffect(() => {
+    if (!project.images || project.images.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentImgIndex((prevIndex) => (prevIndex + 1) % project.images.length);
+    }, 2500);
+
+    return () => clearInterval(interval);
+  }, [project.images]);
+
+  // Dynamic helper to match specific metric keys to their respective icons
+  const getSpecIcon = (key) => {
+    switch (key.toLowerCase()) {
+      case 'speed': return <FaTachometerAlt className="mr-2 text-cyan-400 w-3.5 h-3.5 flex-shrink-0" />;
+      case 'weight': return <FaWeightHanging className="mr-2 text-cyan-400 w-3.5 h-3.5 flex-shrink-0" />;
+      case 'powertrain':
+      case 'power': return <FaBolt className="mr-2 text-cyan-400 w-3.5 h-3.5 flex-shrink-0" />;
+      default: return <FaRulerCombined className="mr-2 text-cyan-400 w-3.5 h-3.5 flex-shrink-0" />;
+    }
+  };
+
+  // Determine if we should make a grid item full width (span 2 columns)
+  const isFullWidthSpec = (key) => {
+    return ['powertrain', 'power', 'chassis', 'frame'].includes(key.toLowerCase());
+  };
+
+  return (
+    <div
+      ref={addProjectRef}
+      className="project-card group relative overflow-hidden bg-gray-900/40 rounded-2xl border border-white/5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between"
+    >
+      {/* Colored dynamic background glow on card */}
+      <div className={`absolute inset-0 ${styles.glow} opacity-30 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none`} />
+
+      {/* Card Image Slideshow Container */}
+      <div className="relative overflow-hidden h-60 w-full border-b border-white/5 bg-black flex items-center justify-center">
+        {project.images.map((imgUrl, index) => (
+          <img
+            key={imgUrl + index}
+            src={imgUrl}
+            alt={`${project.title} slide ${index}`}
+            className={`absolute max-w-full max-h-full object-contain transition-all duration-700 ease-in-out group-hover:scale-102 ${
+              index === currentImgIndex 
+                ? 'opacity-100 scale-100 pointer-events-auto' 
+                : 'opacity-0 scale-98 pointer-events-none'
+            }`}
+          />
+        ))}
+        
+        {/* Simple slide indicator dots */}
+        {project.images.length > 1 && (
+          <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex gap-1.5 z-20 bg-black/60 px-2.5 py-1 rounded-full backdrop-blur-sm border border-white/5">
+            {project.images.map((_, index) => (
+              <span 
+                key={index} 
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  index === currentImgIndex ? 'w-4 bg-cyan-400' : 'w-1.5 bg-white/40'
+                }`}
+              />
+            ))}
+          </div>
+        )}
+
+        <div className="absolute top-4 right-4 bg-gray-950/80 border border-white/10 p-3 rounded-xl backdrop-blur-sm z-20">
+          {project.icon}
+        </div>
+      </div>
+
+      <div className="p-6 relative z-10 flex-grow flex flex-col justify-between">
+        <div>
+          <div className="flex justify-between items-center mb-3">
+            <span className={`text-[10px] font-extrabold uppercase tracking-widest ${styles.text} bg-white/5 border border-white/5 px-2.5 py-0.5 rounded-full inline-block`}>
+              {project.category}
+            </span>
+          </div>
+
+          <h3 className="text-2xl font-extrabold text-white mb-3 group-hover:text-cyan-400 transition-colors">
+            {project.title}
+          </h3>
+          
+          <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-6">
+            {project.desc}
+          </p>
+        </div>
+
+        {/* ─── NEW COMPLETELY OPTIONAL SPECIFICATION SHEET BLOCK ───────────────── */}
+        {project.specs && Object.keys(project.specs).length > 0 && (
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-6 border-t border-white/5 bg-gray-950/30 p-3 sm:p-4 rounded-xl mt-auto">
+            {Object.entries(project.specs).map(([key, value]) => (
+              <div 
+                key={key} 
+                className={`flex items-center text-[10px] sm:text-xs text-gray-300 ${
+                  isFullWidthSpec(key) ? 'col-span-2' : ''
+                }`}
+              >
+                {getSpecIcon(key)}
+                <span className="truncate">
+                  {key.charAt(0).toUpperCase() + key.slice(1)}: <strong>{value}</strong>
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// ─── MAIN COMPONENT ───────────────────────────────────────────────────────────
 const ProjectsPage = () => {
   const [activeFilter, setActiveFilter] = useState('All');
   const containerRef = useRef(null);
   const gridRef = useRef(null);
+  
+  const projectCardRefs = useRef([]);
+  projectCardRefs.current = [];
+  
+  const capabilityCardRefs = useRef([]);
+  capabilityCardRefs.current = [];
+
+  const addProjectRef = (el) => {
+    if (el && !projectCardRefs.current.includes(el)) {
+      projectCardRefs.current.push(el);
+    }
+  };
+
+  const addCapabilityRef = (el) => {
+    if (el && !capabilityCardRefs.current.includes(el)) {
+      capabilityCardRefs.current.push(el);
+    }
+  };
 
   const categories = ['All', 'Combustion', 'Electric', 'Design Concepts'];
 
+  // Updated projects array replacing single `imageUrl` with an array of `images`
   const projects = [
     {
-      title: "Formula Bharat '24 - AGNI",
+      title: "Formula Kart Design Challenge '25 - VANDAL",
       category: "Combustion",
       desc: "Our latest combustion flagship. Designed to optimize dynamic weight distribution and peak cornering lateral-acceleration.",
-      imageUrl: "https://placehold.co/600x400/0a0a0a/ffffff?text=AGNI",
+      images: [
+        "photos/projects/vandal1.jpeg",
+        "photos/projects/vandal2.jpeg",
+        "photos/projects/vandal3.jpeg",
+        "photos/projects/vandal4.jpeg"
+      ],
       specs: {
         speed: "145 km/h",
         weight: "192 kg",
@@ -29,10 +167,13 @@ const ProjectsPage = () => {
       color: "orange"
     },
     {
-      title: "Baja SAE India '23 - PREDATOR",
+      title: "Indian karting race '26 - Brahmastra",
       category: "Combustion",
       desc: "An ultra-rugged off-road monster engineered to survive extreme rocks, drops, and water hazards.",
-      imageUrl: "https://placehold.co/600x400/0a0a0a/ffffff?text=PREDATOR",
+      images: [
+        "photos/projects/Brahmastra1.jpeg",
+        "photos/projects/Brahmastra2.jpeg"
+      ],
       specs: {
         speed: "60 km/h",
         weight: "172 kg",
@@ -43,32 +184,24 @@ const ProjectsPage = () => {
       color: "amber"
     },
     {
-      title: "Formula Electric '27 - VOLT",
+      title: "Radio Controlled Nitro car",
       category: "Electric",
-      desc: "Our active transition flagship, hosting a fully custom accumulator assembly and synchronous motor architecture.",
-      imageUrl: "https://placehold.co/600x400/0a0a0a/ffffff?text=VOLT",
-      specs: {
-        speed: "135 km/h",
-        weight: "205 kg",
-        powertrain: "Dual PMAC Motors (BMS modular)",
-        chassis: "Composite hybrid monocoque"
-      },
+      desc: "Radio-Controlled (RC) Cars are battery/fuel powered miniature ATV (all-terrain vehicle) cars that can be controlled from a distant radio controller. Every year, a team of dedicated members are selected for building up their very own RC Nitro car. This project specifically focuses on designing and fabrication of a Nitro-fuel powered IC-Engine Car (not to be confused with electric cars). Major aspects of project work includes working on Engine, Chassis, Drivetrain, Suspension, Body-Balance, Runtime and Upkeep of the car. The product takes part in Powerdrift, a center-stage event at IIT-R technical fest – Cognizance and there’s no end to its competitive nature!",
+      images: [
+        "photos/projects/Rccar.png"
+      ],
       icon: <FaBolt className="text-cyan-400" />,
       color: "cyan"
     },
     {
       title: "Active Aero EV Concept",
-      category: "Design Concepts",
-      desc: "A computational research model evaluating drag-reduction systems (DRS) and active venturi tunnels.",
-      imageUrl: "https://placehold.co/600x400/0a0a0a/ffffff?text=ACTIVE+AERO",
-      specs: {
-        speed: "N/A (Concept)",
-        weight: "180 kg (Simulated)",
-        powertrain: "Quad hub electric motors",
-        chassis: "Full carbon-fiber honeycomb"
-      },
-      icon: <FaCompass className="text-purple-400" />,
-      color: "purple"
+      category: "Electric",
+      desc: "Quadcopter unmanned aerial vehicles are used for surveillance by military and law enforcement agencies, video shooting as well as search and rescue missions in urban environments.These project comprises of a Quadcopter with a camera and the aim is to fabricate Flight Controller Designing, Electronics and assembling of components. This project unifies the Mechanical. Electronic as well as Coding skills of the team members. The product would be a Quad-copter with a camera mounted on it and the flight controller designing is also involved.",
+      images: [
+        "photos/projects/Camcopter.png"
+      ],
+      icon: <FaBolt className="text-cyan-400" />,
+      color: "cyan"
     }
   ];
 
@@ -90,6 +223,10 @@ const ProjectsPage = () => {
       desc: "Reducing critical structural mass by up to 20% using genetic algorithms and generative design for custom CNC brackets and hubs."
     }
   ];
+
+  const filteredProjects = projects.filter(p => 
+    activeFilter === 'All' ? true : p.category === activeFilter
+  );
 
   // 1. Initial Page Load Animations
   useLayoutEffect(() => {
@@ -114,33 +251,41 @@ const ProjectsPage = () => {
         ease: 'power3.out'
       }, '-=0.6');
 
-      // Grid items entrance
-      gsap.from('.project-card', {
-        opacity: 0,
-        y: 50,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: gridRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        }
-      });
+      if (projectCardRefs.current.length > 0) {
+        gsap.fromTo(projectCardRefs.current, 
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: gridRef.current,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            }
+          }
+        );
+      }
 
-      // Capabilities Entrance
-      gsap.from('.capability-card', {
-        opacity: 0,
-        y: 40,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '#capabilities-grid',
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        }
-      });
+      if (capabilityCardRefs.current.length > 0) {
+        gsap.fromTo(capabilityCardRefs.current,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: '#capabilities-grid',
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            }
+          }
+        );
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -148,19 +293,14 @@ const ProjectsPage = () => {
 
   // 2. Tab Filter Stagger Transition
   useLayoutEffect(() => {
-    const cards = gridRef.current.querySelectorAll('.project-card');
-    if (cards.length > 0) {
-      gsap.killTweensOf(cards);
-      gsap.fromTo(cards, 
+    if (projectCardRefs.current.length > 0) {
+      gsap.killTweensOf(projectCardRefs.current);
+      gsap.fromTo(projectCardRefs.current, 
         { opacity: 0, y: 20 },
         { opacity: 1, y: 0, duration: 0.5, stagger: 0.05, ease: 'power2.out' }
       );
     }
   }, [activeFilter]);
-
-  const filteredProjects = projects.filter(p => 
-    activeFilter === 'All' ? true : p.category === activeFilter
-  );
 
   const getThemeStyles = (color) => {
     switch (color) {
@@ -194,7 +334,6 @@ const ProjectsPage = () => {
 
   return (
     <div className="relative bg-gray-950 text-white min-h-screen font-sans pb-24 overflow-hidden" ref={containerRef}>
-      {/* Decorative neon backdrops */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-cyan-600/5 rounded-full blur-[140px] pointer-events-none -z-10" />
       <div className="absolute top-1/3 right-1/4 w-[500px] h-[500px] bg-blue-600/15 rounded-full blur-[120px] pointer-events-none -z-10" />
 
@@ -241,73 +380,14 @@ const ProjectsPage = () => {
           ref={gridRef}
           className="container mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8"
         >
-          {filteredProjects.map((p, idx) => {
-            const styles = getThemeStyles(p.color);
-            return (
-              <div
-                key={idx}
-                className={`project-card group relative overflow-hidden bg-gray-900/40 rounded-2xl border ${styles.border} backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 flex flex-col justify-between`}
-              >
-                {/* Colored dynamic background glow on card */}
-                <div className={`absolute inset-0 ${styles.glow} opacity-30 group-hover:opacity-60 transition-opacity duration-300 pointer-events-none`} />
-
-                {/* Card Image */}
-                <div className="relative overflow-hidden h-60 w-full border-b border-white/5">
-                  <img 
-                    src={p.imageUrl} 
-                    alt={p.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute top-4 right-4 bg-gray-950/80 border border-white/10 p-3 rounded-xl backdrop-blur-sm">
-                    {p.icon}
-                  </div>
-                </div>
-
-                <div className="p-6 relative z-10 flex-grow">
-                  <div className="flex justify-between items-center mb-3">
-                    <span className={`text-[10px] font-extrabold uppercase tracking-widest ${styles.text} bg-white/5 border border-white/5 px-2.5 py-0.5 rounded-full inline-block`}>
-                      {p.category}
-                    </span>
-                  </div>
-
-                  <h3 className="text-2xl font-extrabold text-white mb-3 group-hover:text-cyan-400 transition-colors">
-                    {p.title}
-                  </h3>
-                  
-                  <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-6">
-                    {p.desc}
-                  </p>
-
-                  {/* Spec Sheets Block */}
-                  <div className="grid grid-cols-2 gap-3 sm:gap-4 pt-6 border-t border-white/5 bg-gray-950/30 p-3 sm:p-4 rounded-xl">
-                    <div className="flex items-center text-[10px] sm:text-xs text-gray-300">
-                      <FaTachometerAlt className="mr-2 text-cyan-400 w-3.5 h-3.5 flex-shrink-0" />
-                      <span className="truncate">Speed: <strong>{p.specs.speed}</strong></span>
-                    </div>
-                    <div className="flex items-center text-[10px] sm:text-xs text-gray-300">
-                      <FaWeightHanging className="mr-2 text-cyan-400 w-3.5 h-3.5 flex-shrink-0" />
-                      <span className="truncate">Weight: <strong>{p.specs.weight}</strong></span>
-                    </div>
-                    <div className="col-span-2 flex items-center text-[10px] sm:text-xs text-gray-300">
-                      <FaBolt className="mr-2 text-cyan-400 w-3.5 h-3.5 flex-shrink-0" />
-                      <span className="truncate">Power: <strong>{p.specs.powertrain}</strong></span>
-                    </div>
-                    <div className="col-span-2 flex items-center text-[10px] sm:text-xs text-gray-300">
-                      <FaRulerCombined className="mr-2 text-cyan-400 w-3.5 h-3.5 flex-shrink-0" />
-                      <span className="truncate">Frame: <strong>{p.specs.chassis}</strong></span>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div className="p-4 bg-gray-950/70 border-t border-white/5 flex justify-end relative z-10">
-                  <button className="text-cyan-400 hover:text-cyan-300 font-bold text-xs inline-flex items-center group/btn transition-colors">
-                    Detailed Dynamic Specs <FaChevronRight className="ml-1 text-[10px] transform group-hover/btn:translate-x-1 transition-transform" />
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+          {filteredProjects.map((project) => (
+            <ProjectCard 
+              key={project.title}
+              project={project}
+              addProjectRef={addProjectRef}
+              getThemeStyles={getThemeStyles}
+            />
+          ))}
         </div>
       </section>
 
@@ -325,6 +405,7 @@ const ProjectsPage = () => {
             {capabilities.map((cap, idx) => (
               <div 
                 key={idx}
+                ref={addCapabilityRef}
                 className="capability-card bg-gray-950 border border-white/5 p-6 rounded-2xl flex flex-col justify-between hover:border-cyan-500/20 transition-all duration-300 shadow-xl"
               >
                 <div className="mb-4">

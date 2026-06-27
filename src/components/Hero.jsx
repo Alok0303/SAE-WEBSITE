@@ -1,10 +1,11 @@
 // src/components/Hero.jsx
 import { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
+import { Link } from 'react-router-dom';
 import { FaArrowRight } from 'react-icons/fa';
 
 // A placeholder video URL. Replace this with your own video file later.
-const videoURL = "src/assets/5638361-uhd_3840_2160_25fps.mp4";
+const videoURL = "videos/5638361-uhd_3840_2160_25fps.mp4";
 
 const Hero = () => {
   const comp = useRef(null);
@@ -60,12 +61,12 @@ const Hero = () => {
         <p className="text-lg md:text-xl text-gray-300 max-w-3xl mb-8">
           We are the Students of Automobile Engineering at IIT Roorkee, turning classroom theory into competitive reality.
         </p>
-        <a
-          href="#projects"
+        <Link
+          to="/projects"
           className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-3 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center"
         >
           Explore Our Vehicles <FaArrowRight className="ml-2" />
-        </a>
+        </Link>
       </div>
 
       {/* Intro Slider - CORRECTED */}

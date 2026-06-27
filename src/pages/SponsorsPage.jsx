@@ -9,6 +9,25 @@ gsap.registerPlugin(ScrollTrigger);
 const SponsorsPage = () => {
   const containerRef = useRef(null);
 
+  // Programmatic array reference managers for dynamically mapped elements
+  const tierSectionsRef = useRef([]);
+  tierSectionsRef.current = [];
+
+  const statCardsRef = useRef([]);
+  statCardsRef.current = [];
+
+  const addTierRef = (el) => {
+    if (el && !tierSectionsRef.current.includes(el)) {
+      tierSectionsRef.current.push(el);
+    }
+  };
+
+  const addStatRef = (el) => {
+    if (el && !statCardsRef.current.includes(el)) {
+      statCardsRef.current.push(el);
+    }
+  };
+
   useLayoutEffect(() => {
     let ctx = gsap.context(() => {
       // Hero Entrance
@@ -32,33 +51,43 @@ const SponsorsPage = () => {
         ease: 'power3.out',
       }, '-=0.6');
 
-      // Sponsor board categories entrance
-      gsap.from('.sponsor-tier-section', {
-        opacity: 0,
-        y: 50,
-        duration: 1,
-        stagger: 0.25,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '#sponsors-board',
-          start: 'top 80%',
-          toggleActions: 'play none none none',
-        }
-      });
+      // ⚙️ FIXED: Sponsor board categories entrance using explicit node tracking
+      if (tierSectionsRef.current.length > 0) {
+        gsap.fromTo(tierSectionsRef.current, 
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            stagger: 0.25,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: '#sponsors-board',
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            }
+          }
+        );
+      }
 
-      // Stats Stagger
-      gsap.from('.stat-card', {
-        opacity: 0,
-        scale: 0.9,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'back.out(1.2)',
-        scrollTrigger: {
-          trigger: '#stats-section',
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        }
-      });
+      // ⚙️ FIXED: Stats Stagger using explicit node tracking
+      if (statCardsRef.current.length > 0) {
+        gsap.fromTo(statCardsRef.current,
+          { opacity: 0, scale: 0.9 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'back.out(1.2)',
+            scrollTrigger: {
+              trigger: '#stats-section',
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            }
+          }
+        );
+      }
     }, containerRef);
 
     return () => ctx.revert();
@@ -158,7 +187,7 @@ const SponsorsPage = () => {
         <div className="container mx-auto max-w-6xl space-y-16 md:space-y-24">
           
           {/* TITLE TIER */}
-          <div className="sponsor-tier-section">
+          <div className="sponsor-tier-section" ref={addTierRef}>
             <div className="flex items-center justify-center space-x-3 mb-8">
               <FaCrown className="text-amber-400 text-2xl" />
               <h2 className="text-2xl font-bold tracking-widest text-center uppercase text-amber-400">Title Sponsor</h2>
@@ -180,16 +209,16 @@ const SponsorsPage = () => {
           </div>
 
           {/* PLATINUM TIER */}
-          <div className="sponsor-tier-section">
+          <div className="sponsor-tier-section" ref={addTierRef}>
             <div className="flex items-center justify-center space-x-3 mb-8">
               <FaAward className="text-cyan-400 text-2xl" />
               <h2 className="text-2xl font-bold tracking-widest text-center uppercase text-cyan-400">Platinum Sponsors</h2>
             </div>
             
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {platinumSponsors.map((sponsor, idx) => (
+              {platinumSponsors.map((sponsor) => (
                 <div 
-                  key={idx}
+                  key={sponsor.name}
                   className="bg-gradient-to-b from-cyan-500/10 to-transparent border border-cyan-500/20 p-6 sm:p-8 rounded-3xl backdrop-blur-md hover:border-cyan-400/40 transition-all duration-300 flex flex-col md:flex-row items-center gap-6"
                 >
                   <div className="w-36 h-36 rounded-2xl bg-gray-950 border border-cyan-500/10 flex items-center justify-center p-3 text-center flex-shrink-0 shadow-[0_0_15px_rgba(34,211,238,0.08)]">
@@ -209,16 +238,16 @@ const SponsorsPage = () => {
           </div>
 
           {/* GOLD TIER */}
-          <div className="sponsor-tier-section">
+          <div className="sponsor-tier-section" ref={addTierRef}>
             <div className="flex items-center justify-center space-x-3 mb-8">
               <FaBuilding className="text-gray-300 text-xl" />
               <h2 className="text-xl font-bold tracking-widest text-center uppercase text-gray-300">Gold Sponsors</h2>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {goldSponsors.map((sponsor, idx) => (
+              {goldSponsors.map((sponsor) => (
                 <div 
-                  key={idx}
+                  key={sponsor.name}
                   className="bg-gray-900/40 border border-white/5 p-6 rounded-2xl text-center backdrop-blur-sm hover:border-white/15 transition-all duration-300"
                 >
                   <div className="w-full h-16 bg-gray-950 border border-white/5 rounded-xl mb-4 flex items-center justify-center text-sm font-extrabold text-gray-300 tracking-wider">
@@ -232,16 +261,16 @@ const SponsorsPage = () => {
           </div>
 
           {/* TECHNICAL PARTNERS */}
-          <div className="sponsor-tier-section">
+          <div className="sponsor-tier-section" ref={addTierRef}>
             <div className="flex items-center justify-center space-x-3 mb-8">
               <FaWrench className="text-gray-500 text-xl" />
               <h2 className="text-lg font-bold tracking-widest text-center uppercase text-gray-500">Technical & Equipment Partners</h2>
             </div>
             
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 max-w-6xl mx-auto">
-              {technicalPartners.map((partner, idx) => (
+              {technicalPartners.map((partner) => (
                 <div 
-                  key={idx}
+                  key={partner.name}
                   className="bg-gray-900/30 border border-white/5 p-4 rounded-xl text-center backdrop-blur-sm hover:bg-gray-900/60 transition-colors"
                 >
                   <h3 className="text-xs md:text-sm font-bold text-gray-300 mb-1">{partner.name}</h3>
@@ -265,9 +294,10 @@ const SponsorsPage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {metrics.map((stat, idx) => (
+            {metrics.map((stat) => (
               <div 
-                key={idx}
+                key={stat.label}
+                ref={addStatRef}
                 className="stat-card bg-gray-950 border border-white/5 p-8 rounded-2xl shadow-lg relative overflow-hidden flex flex-col justify-between hover:border-cyan-500/20 transition-all duration-300"
               >
                 <div className="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full blur-[30px]" />

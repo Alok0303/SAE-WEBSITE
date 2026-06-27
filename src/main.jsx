@@ -1,7 +1,7 @@
 // src/main.jsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App.jsx';
 import HomePage from './pages/HomePage.jsx';
@@ -12,7 +12,7 @@ import ProjectsPage from './pages/ProjectsPage.jsx';
 import './index.css';
 
 // Define the application's routes
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <App />,

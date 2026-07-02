@@ -15,23 +15,23 @@ const TeamPage = () => {
 
   const facultyAdvisors = [
     {
-      name: 'Dr. Akshay Dvivedi',
+      name: 'Anuj Bisht',
       role: 'Faculty Advisor',
-      department: 'Mechanical & Industrial Engineering',
-      email: 'akshaydvivedi@me.iitr.ac.in',
-      phone: '+91-1332-285428',
-      linkedin: 'https://linkedin.com',
-      image: 'photos/team/Akshaysir.webp', // e.g., '/images/ramesh.jpg'
+      department: 'Mechanical and Industrial Engineering',
+      email: 'anuj.bisht@me.iitr.ac.in',
+      phone: '+91-1332-285009',
+      linkedin: 'https://www.linkedin.com/in/anuj-bisht-9258278/',
+      image: 'photos/team/anuj.jpg', 
       glowColor: 'blue'
     },
     {
-      name: 'Dr. Arup Kumar Das',
+      name: 'Saurabh Sharma',
       role: 'Faculty Advisor',
-      department: 'Mechanical & Industrial Engineering',
-      email: 'arup.das@me.iitr.ac.in',
-      phone: '+91-1332-284802',
-      linkedin: 'https://linkedin.com',
-      image: 'photos/team/Arupsir.webp', 
+      department: 'Mechanical and Industrial Engineering',
+      email: 'saurabh.sharma@me.iitr.ac.in',
+      phone: '+91-1332-285070',
+      linkedin: 'https://www.linkedin.com/in/saurabh-sharma-30b098193/',
+      image: 'photos/team/saurabh.jpg', 
       glowColor: 'blue'
     }
   ];

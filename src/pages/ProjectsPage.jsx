@@ -251,23 +251,7 @@ const ProjectsPage = () => {
         ease: 'power3.out'
       }, '-=0.6');
 
-      if (projectCardRefs.current.length > 0) {
-        gsap.fromTo(projectCardRefs.current, 
-          { opacity: 0, y: 50 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: gridRef.current,
-              start: 'top 85%',
-              toggleActions: 'play none none none',
-            }
-          }
-        );
-      }
+      // Project cards animation is handled by the activeFilter useLayoutEffect
 
       if (capabilityCardRefs.current.length > 0) {
         gsap.fromTo(capabilityCardRefs.current,

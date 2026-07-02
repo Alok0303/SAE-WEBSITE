@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'; // Import useEffect
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 // --- Icon components remain the same ---
 const MenuIcon = (props) => (
@@ -21,6 +21,7 @@ const CloseIcon = (props) => (
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false); // --- ADD THIS LINE ---
+  const location = useLocation();
 
   const navLinks = [
     { title: 'About', to: '/#about' },
@@ -69,15 +70,20 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.title}
-                to={link.to}
-                className="text-gray-300 hover:text-white transition-colors duration-200 font-medium"
-              >
-                {link.title}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = link.to === '/#about' ? location.pathname === '/' : location.pathname === link.to;
+              return (
+                <Link
+                  key={link.title}
+                  to={link.to}
+                  className={`transition-colors duration-200 font-medium ${
+                    isActive ? 'text-cyan-400 font-bold' : 'text-gray-300 hover:text-white'
+                  }`}
+                >
+                  {link.title}
+                </Link>
+              );
+            })}
           </div>
 
           {/* Mobile Menu Button */}
@@ -105,16 +111,21 @@ const Navbar = () => {
               </button>
             </div>
             <div className="flex flex-col space-y-6">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.title}
-                  to={link.to}
-                  onClick={toggleMobileMenu}
-                  className="text-2xl text-gray-300 hover:text-cyan-400 transition-colors duration-200 font-medium"
-                >
-                  {link.title}
-                </Link>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = link.to === '/#about' ? location.pathname === '/' : location.pathname === link.to;
+                return (
+                  <Link
+                    key={link.title}
+                    to={link.to}
+                    onClick={toggleMobileMenu}
+                    className={`text-2xl transition-colors duration-200 font-medium ${
+                      isActive ? 'text-cyan-400 font-bold' : 'text-gray-300 hover:text-cyan-400'
+                    }`}
+                  >
+                    {link.title}
+                  </Link>
+                );
+              })}
             </div>
           </motion.div>
         )}

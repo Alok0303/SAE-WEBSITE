@@ -136,6 +136,48 @@ const EventsPage = () => {
   const pastMilestones = [
     {
       year: "2025",
+      title: "AIR 2 in Cost Evaluation",
+      desc: "Demonstrated flawless budget management and cost-effective engineering.",
+      tag: "FORMULA KART DESIGN CHALLENGE",
+    },
+    {
+      year: "2025",
+      title: "AIR 3 in Design Evaluation",
+      desc: "Recognized for pure engineering design, structural integrity, and innovation.",
+      tag: "FORMULA KART DESIGN CHALLENGE",
+    },
+    {
+      year: "2025",
+      title: "AIR 7 in Business Plan",
+      desc: "Proved our team's business acumen with a highly scalable and viable pitch.",
+      tag: "FORMULA KART DESIGN CHALLENGE",
+    },
+    {
+      year: "2025",
+      title: "Top 10 overall in FKDC",
+      desc: "Secured a top 10 overall finish in the highly competitive Formula Kart Design Challenge.",
+      tag: "FORMULA KART DESIGN CHALLENGE",
+    },
+    {
+      year: "2025",
+      title: "Ranked 8th in Skidpad",
+      desc: "Showcased exceptional chassis balance and suspension tuning to navigate tight corners with precision.",
+      tag: "FORMULA KART DESIGN CHALLENGE",
+    },
+    {
+      year: "2025",
+      title: "Ranked 9th in Lateral Acceleration",
+      desc: "Achieved high cornering speeds with optimized aerodynamic downforce and maximum mechanical grip.",
+      tag: "FORMULA KART DESIGN CHALLENGE",
+    },
+    {
+      year: "2025",
+      title: "Ranked 11th in Endurance",
+      desc: "Proved the reliability and durability of our powertrain over a rigorous and demanding long-distance race.",
+      tag: "FORMULA KART DESIGN CHALLENGE",
+    },
+    {
+      year: "2025",
       title: "Transition to EV Frameworks",
       desc: "Voted and initiated the club's pivot to electric drivetrains. Hand-crafted our first custom modular battery box and advanced thermodynamic cooling ducts.",
       tag: "Technological Pivot",
@@ -153,18 +195,6 @@ const EventsPage = () => {
       desc: "Conquered Indore NATRAX's brutal mud course. Cleared the 4-hour high-impact endurance race with zero major failures, finishing in the top tier.",
       tag: "Endurance Masters",
     },
-    {
-      year: "2022",
-      title: "Real-time Telemetry Rollout",
-      desc: "Engineered a custom proprietary telemetry board utilizing LoRa modules, transmitting temperature, RPM, and suspension travel data live to the pit wall.",
-      tag: "Data Integration",
-    },
-    {
-      year: "2021",
-      title: "Virtual Simulator & CAD Overhauls",
-      desc: "Overcame physical workshop restrictions by building virtual vehicle models. Simulated hundreds of load cases, cutting structural weight by 14%.",
-      tag: "Digital Engineering",
-    }
   ];
 
   return (
@@ -274,7 +304,7 @@ const EventsPage = () => {
             {/* Timeline Items */}
             <div className="space-y-12 md:space-y-20">
               {pastMilestones.map((m, idx) => {
-                const isEven = idx % 2 === 0;
+                const isEven = idx % 2 !== 0;
                 return (
                   <div
                     key={idx}
@@ -288,7 +318,7 @@ const EventsPage = () => {
                     </div>
 
                     {/* Timeline Content Block */}
-                    <div className="w-full md:w-1/2 pl-12 md:pl-0 md:px-8">
+                    <div className={`w-full md:w-1/2 pl-12 ${isEven ? 'md:pl-8 md:pr-0' : 'md:pr-8 md:pl-0'}`}>
                       <div className={`timeline-content bg-gray-900/50 backdrop-blur-md p-6 md:p-8 rounded-2xl border ${
                         m.highlight ? 'border-cyan-500/40 shadow-[0_0_20px_rgba(34,211,238,0.15)] bg-gray-900/80' : 'border-white/5'
                       } relative hover:border-white/15 transition-all duration-300`}>
@@ -309,7 +339,7 @@ const EventsPage = () => {
                           <h3 className="text-lg md:text-xl font-bold text-gray-200">{m.title}</h3>
                         </div>
 
-                        <p className="text-gray-400 text-sm md:text-base leading-relaxed">{m.desc}</p>
+                        <p className="text-gray-400 text-sm md:text-base leading-relaxed whitespace-pre-line">{m.desc}</p>
                       </div>
                     </div>
 
